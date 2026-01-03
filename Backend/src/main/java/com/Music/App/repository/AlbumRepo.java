@@ -1,0 +1,15 @@
+package com.Music.App.repository;
+
+import com.Music.App.model.Album;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface AlbumRepo extends JpaRepository<Album,Long> {
+    List<Album> findByArtistId(Long artist_id);
+    List<Album> findByName(String title);
+    List<Album> findByReleaseYear(int releaseYear);
+
+}

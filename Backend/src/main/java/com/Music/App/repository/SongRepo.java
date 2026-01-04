@@ -16,7 +16,7 @@ public interface SongRepo extends JpaRepository<Song,Long> {
     Optional<Song> findByTitleContainingIgnoreCase(String title);
     List<Song> findByAlbumId(Long album_id);
     List<Song> findByPerformersContaining(Artist artist);
-    @Query("SELECT s FROM Songs s WHERE s.duration > :minDuration AND size(s.performers)>1")
+    @Query("SELECT s FROM Song s WHERE s.duration > :minDuration AND size(s.performers)>1")
     List<Song> findLongCollabrations(@Param("minDuration") int minDuration);
 
 

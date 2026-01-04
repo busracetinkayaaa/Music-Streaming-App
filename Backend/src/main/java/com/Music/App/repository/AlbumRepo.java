@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface AlbumRepo extends JpaRepository<Album,Long> {
     List<Album> findByArtistId(Long artist_id);
-    List<Album> findByName(String title);
+    List<Album> findByTitle(String title);
     List<Album> findByReleaseYear(int releaseYear);
     @Query("SELECT a FROM Album a WHERE a.artist.id = :artistId AND a.releaseYear > :year")
     List<Album> findRecentAlbumByArtist(@Param("artistId") Long artistId,@Param("year") int year);

@@ -14,7 +14,7 @@ import java.util.List;
 public interface PlaylistRepo extends JpaRepository<Playlist,Long> {
     List<Playlist> findByName(String name);
     List<Playlist> findByUserId(Long user_id);
-    @Query("SELECT p FROM Playlist p JOIN p.songs s WHERE s.id= song_id")
+    @Query("SELECT p FROM Playlist p JOIN p.songs s WHERE s.id= :song_id")
     List<Playlist> findAllPlaylistsContainingSong(@Param("song_id") Long song_id);
 
 

@@ -13,7 +13,7 @@ public interface UserRepo extends JpaRepository<User,Long> {
     Optional<User> findByUsername(String username);
     Optional<User> findByEmail(String email);
 
-    @Query("SELECT u FROM User u WHERE u.playlist IS EMPTY ")
+    @Query("SELECT u FROM User u WHERE u.playlists IS EMPTY ")
     List<User> findPassiveUser();
 
 }

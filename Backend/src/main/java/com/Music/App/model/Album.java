@@ -1,5 +1,6 @@
 package com.Music.App.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,6 +21,7 @@ private int releaseYear;
 private int totalLengthOfAlbum;
 
 @OneToMany(mappedBy = "album", cascade = CascadeType.ALL)
+@JsonIgnore
 private List<Song> songs = new ArrayList<>();
 
 @ManyToOne()

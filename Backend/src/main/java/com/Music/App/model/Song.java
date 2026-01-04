@@ -1,5 +1,6 @@
 package com.Music.App.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,10 +15,12 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 
+
 public class Song extends BaseEntity{
     private String title;
     private int duration;
-    @ManyToOne()
+
+    @ManyToMany()
     @JoinTable(name = "song_artists",joinColumns = @JoinColumn(name = "song_id"),inverseJoinColumns = @JoinColumn(name = "artist_id"))
     private List<Artist> performers =new ArrayList<>();
 
@@ -26,6 +29,7 @@ public class Song extends BaseEntity{
     private Album album;
 
     @ManyToMany(mappedBy = "songs")
+    @JsonIgnore
     private List<Playlist> playlists=new ArrayList<>();
 
 

@@ -3,25 +3,20 @@ package com.Music.App;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+
+import java.util.Arrays;
 
 @Slf4j
-
-
 @SpringBootApplication
-
 public class AppApplication {
-
 	public static void main(String[] args) {
-		log.info("Application is starting...");
+		 SpringApplication.run(AppApplication.class, args);
 
-		try {
-			log.debug("Attempting risky operation...");
-			int result = 10 / 0; // This will throw an exception
-		} catch (Exception e) {
-			log.error("An exception occurred: {}", e.getMessage(), e);
-		}
-
-		log.info("Application is shutting down.");
+		log.info("----------------------------------------------------------");
+		log.info("🎸 Müzik Akış Uygulaması Başarıyla Başlatıldı!");
+		log.info("🚀 Swagger Dokümantasyonu: http://localhost:8080/swagger-ui/index.html");
+		log.info("----------------------------------------------------------");
+	}
 	}
 
-}

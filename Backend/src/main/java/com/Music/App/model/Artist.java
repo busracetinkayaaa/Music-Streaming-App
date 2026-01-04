@@ -1,10 +1,8 @@
 package com.Music.App.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,14 +13,18 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class Artist extends BaseEntity{
+    @Column(unique = true, nullable = false)
     private String name;
     private String genre;
 
     @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Album> albums=new ArrayList<>();
 
     @ManyToMany(mappedBy = "performers")
+    @JsonIgnore
     private List<Song> songs= new ArrayList<>();
 
 

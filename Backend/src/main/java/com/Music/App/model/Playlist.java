@@ -19,7 +19,7 @@ public class Playlist extends BaseEntity{
 private String name;
 
 @ManyToOne
-@JoinColumn(name="user=id")
+@JoinColumn(name="user_id")
 private User user;
 
 @ManyToMany()

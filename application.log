@@ -1,0 +1,5 @@
+2026-01-04 16:41:11 INFO  AppApplication:15 - Application is starting...
+2026-01-04 16:41:11 ERROR AppApplication:21 - An exception occurred: / by zero
+java.lang.ArithmeticException: / by zero
+	at com.Music.App.AppApplication.main(AppApplication.java:19)
+2026-01-04 16:41:11 INFO  AppApplication:24 - Application is shutting down.

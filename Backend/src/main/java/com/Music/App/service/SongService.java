@@ -1,8 +1,12 @@
 package com.Music.App.service;
 
+import com.Music.App.dto.SongRequestDTO;
+import com.Music.App.dto.SongResponseDTO;
+import com.Music.App.exception.ResourceNotFoundException;
 import com.Music.App.model.Artist;
 import com.Music.App.model.Song;
 import com.Music.App.repository.SongRepo;
+import com.Music.App.repository.ArtistRepo;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +20,35 @@ import java.util.Optional;
 @Slf4j
 public class SongService {
     private final SongRepo songRepo;
+    private final ArtistRepo artistRepo;
+    @Transactional
+    public SongResponseDTO saveSong(SongRequestDTO dto){
+        Song song=new Song();
+        song.setTitle(dto.getTitle());
+        song.setDuration(dto.getDuration());
+
+        if(dto.getArtist_id()!= null){
+            Artist mainArtist= artistRepo.findById(dto.getArtist_id()).orElseThrow(()-> new ResourceNotFoundException("ID'si " + dto.getArtist_id() + " olan sanatçı sistemde bulunamadı."));
+            song.setArtist(mainArtist);
+            song.getPerformers().add(mainArtist);
+        }
+        Song savedSong=songRepo.save(song);
+        SongResponseDTO response=new SongResponseDTO();
+        response.setId(savedSong.getId());
+        response.setTitle(savedSong.getTitle());
+        response.setDuration(savedSong.getDuration());
+
+        if(savedSong.getArtist()!=null){
+            response.setArtistName(savedSong.getArtist().getName());
+        }
+
+        log.info("Şarkı veritabanına kaydediliyor: {}", song.getTitle());
+        return response;
+    }
+    public List<Song> getAllSongs(){
+        log.debug("Tüm şarkılar listeleniyor.");
+        return songRepo.findAll();
+    }
 
     public Optional<Song> searchSongByTitle(String title){
       log.info(title+"adlı şarkı aranıyor ");
@@ -36,11 +69,8 @@ public class SongService {
         log.info(songs.size()+"tane uzun işbirliği bulundu.");
         return songs;
     }
-    @Transactional
-    public Song saveSong(Song song){
-        log.info("Şarkı veritabanına kaydediliyor: {}", song.getTitle());
-        return songRepo.save(song);
-    }
+
+
 
 
 

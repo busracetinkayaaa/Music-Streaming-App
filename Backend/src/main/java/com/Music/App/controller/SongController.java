@@ -1,9 +1,12 @@
 package com.Music.App.controller;
 
+import com.Music.App.dto.SongRequestDTO;
+import com.Music.App.dto.SongResponseDTO;
 import com.Music.App.model.Artist;
 import com.Music.App.model.Song;
 import com.Music.App.service.SongService;
 import io.swagger.v3.oas.annotations.*;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -16,12 +19,13 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/songs")
 @Slf4j
+@Valid
 public class SongController {
     private final SongService songService;
     @PostMapping
-    public ResponseEntity<Song> createSong(@RequestBody Song song){
-        log.info("API: Yeni şarkı oluşturma isteği - {}", song.getTitle());
-        return ResponseEntity.ok(songService.saveSong(song));
+    public ResponseEntity<SongResponseDTO> createSong(@Valid @RequestBody SongRequestDTO dto){
+        log.info("API: Yeni şarkı oluşturma isteği - {}", dto.getTitle());
+        return ResponseEntity.ok(songService.saveSong(dto));
     }
 
     @GetMapping

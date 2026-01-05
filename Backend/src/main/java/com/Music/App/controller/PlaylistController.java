@@ -1,5 +1,6 @@
 package com.Music.App.controller;
 
+import com.Music.App.dto.PlaylistResponseDTO;
 import com.Music.App.model.Playlist;
 import com.Music.App.service.PlaylistService;
 import lombok.RequiredArgsConstructor;
@@ -20,12 +21,29 @@ public class PlaylistController {
     public ResponseEntity<Playlist> createPlaylists(@RequestBody Playlist playlist){
         return ResponseEntity.ok(playlistService.savePlaylist(playlist));
     }
-    @GetMapping("/{name}")
-    public ResponseEntity<List<Playlist>> getAllPlaylist(@PathVariable("name") String name){
+    @PutMapping("/{playlist_id}/add-song/{song_id}")
+    public ResponseEntity<PlaylistResponseDTO> addSongToPlaylist(
+            @PathVariable Long playlist_id,
+            @PathVariable Long song_id) {
+        PlaylistResponseDTO response=playlistService.addSongToPlaylist(playlist_id,song_id);
+        return ResponseEntity.ok(response);
+    }
+    @GetMapping("/name")
+    public ResponseEntity<List<Playlist>> getAllPlaylist(@RequestParam("name") String name){
         return ResponseEntity.ok(playlistService.getPlaylistByName(name));
     }
     @GetMapping("/song/{song_id}")
     public ResponseEntity<List<Playlist>> getAllPlaylistsContainingSong(@PathVariable("song_id") Long song_id){
         return ResponseEntity.ok(playlistService.getAllPlaylistsContainingSong(song_id));
+    }
+    @DeleteMapping("/{playlist_id}/delete-song/{song_id}")
+    public ResponseEntity<Playlist> deleteSongFromPlaylist(@PathVariable Long playlist_id,Long song_id){
+        return ResponseEntity.ok(playlistService.deleteSongFromPlaylist(song_id,playlist_id));
+    }
+
+    @DeleteMapping("/{playlist_id}")
+    public ResponseEntity<String> deletePlaylist(@PathVariable Long playlist_id){
+        playlistService.deletePlaylist(playlist_id);
+        return ResponseEntity.ok("silindi");
     }
 }

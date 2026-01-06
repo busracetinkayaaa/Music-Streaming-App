@@ -27,6 +27,9 @@ public class Artist extends BaseEntity{
     @JsonIgnore
     private List<Song> songs= new ArrayList<>();
 
+    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Song> ownedSongs = new ArrayList<>();
 
 
 }

@@ -1,6 +1,7 @@
 package com.Music.App.service;
 
 import com.Music.App.model.Album;
+import com.Music.App.model.Artist;
 import com.Music.App.repository.AlbumRepo;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +39,10 @@ public class AlbumService {
     public Album saveAlbum(Album album){
         log.info("Albüm veritabanına kaydediliyor: {}", album.getTitle());
         return albumRepo.save(album);
+    }
+    public List<Album> getAllAlbums(){
+        log.debug("Tüm albümler listeleniyor.");
+        return albumRepo.findAll();
     }
 
 

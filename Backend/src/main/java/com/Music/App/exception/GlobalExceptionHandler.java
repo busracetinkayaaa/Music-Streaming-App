@@ -4,7 +4,6 @@ import com.Music.App.dto.ErrorDetails;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -54,11 +53,8 @@ public class GlobalExceptionHandler {
         ex.getBindingResult().getFieldErrors().forEach(error ->
                 errors.put(error.getField(), error.getDefaultMessage())
         );
-        // Bu, frontend'in hangi kutucuğun altına hangi hatayı yazacağını bilmesini sağlar.
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
-
-
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ErrorDetails> handleDataIntegrity(DataIntegrityViolationException ex) {

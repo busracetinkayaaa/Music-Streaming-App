@@ -21,7 +21,7 @@ public class ArtistService {
     public Optional<Artist> getArtistByName(String name){
         return artistRepo.findByNameContainingIgnoreCase(name);
     }
-    public List<Artist> geArtistByGenre(String genre){
+    public List<Artist> getArtistByGenre(String genre){
         return artistRepo.findByGenre(genre);
     }
     public List<Artist> getProductiveArtists(int songCount){
@@ -37,5 +37,6 @@ public class ArtistService {
         log.debug("Tüm sanatçılar listeleniyor.");
         return artistRepo.findAll();
     }
+
 
 }

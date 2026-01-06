@@ -14,7 +14,7 @@ public interface AlbumRepo extends JpaRepository<Album,Long> {
     List<Album> findByTitle(String title);
     List<Album> findByReleaseYear(int releaseYear);
     @Query("SELECT a FROM Album a WHERE a.artist.id = :artistId AND a.releaseYear > :year")
-    List<Album> findRecentAlbumByArtist(@Param("artistId") Long artistId,@Param("year") int year);
+    List<Album> findRecentAlbumByArtist(@Param("artist_id") Long artist_id,@Param("year") int year);
 
 
 

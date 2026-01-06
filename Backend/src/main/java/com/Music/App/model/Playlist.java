@@ -22,6 +22,8 @@ private String name;
 @JoinColumn(name="user_id")
 private User user;
 
+private int duration;
+
 @ManyToMany()
 @JoinTable(
         name = "playlist_songs",

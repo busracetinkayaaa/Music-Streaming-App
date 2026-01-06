@@ -10,5 +10,8 @@ import java.util.List;
 public class PlaylistResponseDTO {
     private Long  id;
     private String name;
-    private List<String> songTitles;
+
+    private int totalDuration;
+    private String formattedDuration;
+    private List<SongResponseDTO> songs;
 }

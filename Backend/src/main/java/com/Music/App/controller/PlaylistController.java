@@ -46,4 +46,9 @@ public class PlaylistController {
         playlistService.deletePlaylist(playlist_id);
         return ResponseEntity.ok("silindi");
     }
+    @GetMapping("/details/{id}")
+    public PlaylistResponseDTO getPlaylistDetails(@PathVariable Long id){
+
+        return playlistService.getPlaylistDetails(id);
+    }
 }

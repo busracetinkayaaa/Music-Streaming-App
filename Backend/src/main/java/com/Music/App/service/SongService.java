@@ -26,6 +26,7 @@ public class SongService {
         Song song=new Song();
         song.setTitle(dto.getTitle());
         song.setDuration(dto.getDuration());
+        song.setImageUrl(dto.getImageUrl());
 
         if(dto.getArtist_id()!= null){
             Artist mainArtist= artistRepo.findById(dto.getArtist_id()).orElseThrow(()-> new ResourceNotFoundException("ID'si " + dto.getArtist_id() + " olan sanatçı sistemde bulunamadı."));
@@ -37,6 +38,7 @@ public class SongService {
         response.setId(savedSong.getId());
         response.setTitle(savedSong.getTitle());
         response.setDuration(savedSong.getDuration());
+        response.setImageUrl(savedSong.getImageUrl());
 
         if(savedSong.getArtist()!=null){
             response.setArtistName(savedSong.getArtist().getName());

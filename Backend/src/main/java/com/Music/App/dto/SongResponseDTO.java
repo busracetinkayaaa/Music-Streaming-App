@@ -13,6 +13,7 @@ public class SongResponseDTO {
     private String title;
     private int duration;
     private String artistName;
+    private String imageUrl;
 
 
 }

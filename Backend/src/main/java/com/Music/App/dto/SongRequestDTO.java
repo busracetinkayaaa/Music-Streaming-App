@@ -17,4 +17,5 @@ public class SongRequestDTO {
     private int duration;
 
     private Long artist_id;
+    private String imageUrl;
 }

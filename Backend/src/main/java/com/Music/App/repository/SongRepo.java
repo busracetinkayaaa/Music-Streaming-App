@@ -20,5 +20,4 @@ public interface SongRepo extends JpaRepository<Song,Long> {
     List<Song> findLongCollabrations(@Param("minDuration") int minDuration);
 
 
-
 }

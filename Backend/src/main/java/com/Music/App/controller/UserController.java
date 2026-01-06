@@ -20,12 +20,12 @@ public class UserController {
     public ResponseEntity<User> registerUser(@RequestBody User user){
         return ResponseEntity.ok(userService.registerUser(user));
     }
-    @GetMapping("/{username}")
-    public ResponseEntity<Optional<User>> getUserByUsername(@PathVariable("username") String username){
+    @GetMapping("/username")
+    public ResponseEntity<Optional<User>> getUserByUsername(@RequestParam("username") String username){
         return ResponseEntity.ok(userService.getUserByUsername(username));
     }
-    @GetMapping("/{email}")
-    public ResponseEntity<Optional<User>> getUserByEmail(@PathVariable("email") String email){
+    @GetMapping("/email")
+    public ResponseEntity<Optional<User>> getUserByEmail(@RequestParam("email") String email){
         return ResponseEntity.ok(userService.getUserByEmail(email));
     }
     @GetMapping

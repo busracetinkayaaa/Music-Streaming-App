@@ -31,7 +31,10 @@ public class Song extends BaseEntity{
 
     private String imageUrl;
 
-    @ManyToMany()
+    @Column(name = "deleted", nullable = false)
+    private boolean deleted = false;
+
+    @ManyToMany
     @JoinTable(name = "song_performers",joinColumns = @JoinColumn(name = "song_id"),inverseJoinColumns = @JoinColumn(name = "artist_id"))
     private List<Artist> performers =new ArrayList<>();
 
@@ -39,7 +42,7 @@ public class Song extends BaseEntity{
     @JoinColumn(name = "main_artist_id", nullable = false)
     private Artist artist;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name="album_id")
     private Album album;
 

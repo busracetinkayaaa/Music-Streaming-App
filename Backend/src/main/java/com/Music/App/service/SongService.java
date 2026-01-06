@@ -71,6 +71,12 @@ public class SongService {
         log.info(songs.size()+"tane uzun işbirliği bulundu.");
         return songs;
     }
+    public void deleteSong(Long id){
+
+        Song song=songRepo.findById(id).orElseThrow(()->new ResourceNotFoundException("Silinmek istenen şarkı"+id+"bulunamadı") );
+        songRepo.delete(song);
+        log.info("{} IDli şarkı silindi",id);
+    }
 
 
 

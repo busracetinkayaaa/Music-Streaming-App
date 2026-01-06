@@ -27,7 +27,6 @@ public class SongController {
         log.info("API: Yeni şarkı oluşturma isteği - {}", dto.getTitle());
         return ResponseEntity.ok(songService.saveSong(dto));
     }
-
     @GetMapping
     public ResponseEntity<List<Song>> getAllSongs(){
         return ResponseEntity.ok(songService.getAllSongs());
@@ -53,5 +52,9 @@ public class SongController {
     public ResponseEntity<List<Song>> getByArtist(@RequestBody Artist artist){
         return ResponseEntity.ok(songService.getSongsByArtist(artist));
     }
-
+    @DeleteMapping("/{song_id}")
+    public ResponseEntity<String> deleteSong(@PathVariable Long song_id){
+        songService.deleteSong(song_id);
+        return ResponseEntity.ok("Şarkı silindi.");
+    }
 }

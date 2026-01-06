@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  mysql:
+  mysql-db:
     image: mysql:8
     container_name: mysql-db
     restart: always
@@ -10,8 +10,24 @@ services:
       MYSQL_DATABASE: my_db
     ports:
       - "3306:3306"
+    healthcheck:
+        test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+        timeout: 10s
+        retries: 5
     volumes:
       - mysql_data:/var/lib/mysql
+
+  backend-api:
+    build: .
+    container_name: music-backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql-db:
+          condition: service_healthy
+    environment:
+       - SPRING_PROFILES_ACTIVE=docker
+    restart: on-failure
 
 volumes:
   mysql_data:

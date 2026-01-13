@@ -31,6 +31,8 @@ public class PlaylistService {
     public Playlist savePlaylist(Playlist playlist){
         return playlistRepo.save(playlist);
     }
+
+    public List<Playlist> getAllPlaylists(){return playlistRepo.findAll();}
     @Transactional
     public PlaylistResponseDTO addSongToPlaylist(Long playlist_id,Long song_id){
         Playlist playlist=playlistRepo.findById(playlist_id).orElseThrow(()->new ResourceNotFoundException("Playlist Bulunamadı"));

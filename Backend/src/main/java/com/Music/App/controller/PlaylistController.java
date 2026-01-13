@@ -21,6 +21,10 @@ public class PlaylistController {
     public ResponseEntity<Playlist> createPlaylists(@RequestBody Playlist playlist){
         return ResponseEntity.ok(playlistService.savePlaylist(playlist));
     }
+    @GetMapping
+    public ResponseEntity<List<Playlist>> getPlaylists(){
+        return  ResponseEntity.ok(playlistService.getAllPlaylists());
+    }
     @PutMapping("/{playlist_id}/add-song/{song_id}")
     public ResponseEntity<PlaylistResponseDTO> addSongToPlaylist(
             @PathVariable Long playlist_id,

@@ -41,7 +41,7 @@ public class PlaylistController {
         return ResponseEntity.ok(playlistService.getAllPlaylistsContainingSong(song_id));
     }
     @DeleteMapping("/{playlist_id}/delete-song/{song_id}")
-    public ResponseEntity<Playlist> deleteSongFromPlaylist(@PathVariable Long playlist_id,Long song_id){
+    public ResponseEntity<Playlist> deleteSongFromPlaylist(@PathVariable Long playlist_id,@PathVariable Long song_id){
         return ResponseEntity.ok(playlistService.deleteSongFromPlaylist(song_id,playlist_id));
     }
 

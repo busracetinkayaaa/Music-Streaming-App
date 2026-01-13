@@ -5,13 +5,21 @@ import { X ,Volume2} from 'lucide-react';
 
 const Home = () => {
   const [selectedSong, setSelectedSong] = useState(null);
-  const { songs, loading, error } = useSongs();
+  const { songs, loading, error,deleteSongs } = useSongs();
   const [isPlaying, setIsPlaying] = useState(false);
 
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
   
+  const handleDelete=async (id) => {
+    if(window.confirm("Are you sure you want to delete this song?")) {
+      if(selectedSong && String(selectedSong.id)===String(id)){
+        setSelectedSong(null);
+      }
+      await deleteSongs(id);
+    }
+  };
 
   return (
     <div className="animate-in fade-in duration-500">
@@ -37,7 +45,9 @@ const Home = () => {
                 <span className="text-xs text-zinc-500">
                   {song.artist?.genre}
                 </span>  
-
+          <button onClick={(e)=>{e.stopPropagation(); handleDelete(song.id);}} className="absolute top-3 right-3 p-1.5 bg-black/40 hover:bg-red-500 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity z-20"> 
+            <X size={16} />
+          </button>
             </div>      
         ))}
 

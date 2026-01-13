@@ -3,12 +3,26 @@ import Player from './Components/Player';
 import Sidebar from './Components/Sidebar';
 import Home from './Pages/Home';
 import Playlists from './Pages/Playlists';
+import { useSongs } from './Hooks/useSongs.jsx';
 
 function App() {
   const [activePage, setActivePage] = useState('home');
+  const [selectedSong, setSelectedSong] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const { songs, loading, error,deleteSongs } = useSongs();
+
   const renderContent = () => {
     switch (activePage) {
-      case 'home': return <Home />;
+      case 'home': return <Home 
+        songs={songs}
+        selectedSong={selectedSong}
+        setSelectedSong={setSelectedSong}
+        isPlaying={isPlaying}
+        deleteSongs={deleteSongs}
+        loading={loading}
+        error={error}
+      />;
       case 'playlists': return <Playlists />;
       case 'search': return <div className="text-white p-10">Arama Sayfası Yapım Aşamasında</div>;
       default: return <Home />;
@@ -18,13 +32,18 @@ function App() {
   return (
     <div className="flex flex-col h-screen bg-black text-white overflow-hidden">
       <div className="flex flex-1 overflow-hidden">
-        <Sidebar setPage={setActivePage} />
-        <main className="flex-1 overflow-y-auto bg-gradient-to-b from-zinc-900 to-black p-8 mb-24">
-           {activePage === 'home' && <Home />}
-           {activePage === 'playlists' && <Playlists />}
+        <Sidebar setPage={setActivePage} activePage={activePage} />
+        <main className="flex-1 overflow-y-auto bg-linear-to-b from-zinc-900 to-black p-8 mb-24">
+          {renderContent()}
         </main>
       </div>
-      <Player />
+      {selectedSong &&( <Player  
+        songs={songs}
+        selectedSong={selectedSong}
+        setSelectedSong={setSelectedSong}
+        isPlaying={isPlaying}
+        setIsPlaying={setIsPlaying}
+       />)}
     </div>
   );
 }

@@ -1,13 +1,9 @@
 import { useState } from 'react';
-import {useSongs} from '../Hooks/useSongs.jsx';
-import Player from '../Components/Player.jsx';
 import { X ,Volume2} from 'lucide-react';
 import SearchBar from '../Components/SearchBar.jsx';
 
-const Home = () => {
-  const [selectedSong, setSelectedSong] = useState(null);
-  const { songs, loading, error,deleteSongs } = useSongs();
-  const [isPlaying, setIsPlaying] = useState(false);
+const Home = ({ songs, selectedSong, setSelectedSong, isPlaying, deleteSongs ,loading,error}) => {
+
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredSongs = songs.filter((song) =>{
@@ -15,7 +11,6 @@ const Home = () => {
     const artistMatch=song.artist && song.artist.name.toLowerCase().includes(searchTerm.toLowerCase());
     return titleMatch || artistMatch;
   });
-
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
@@ -65,11 +60,6 @@ const Home = () => {
               "No songs found matching {searchTerm}". 
             </div>
             )}
-            
-      
-        {selectedSong && (
-        <Player songs={songs} selectedSong={selectedSong} setSelectedSong={setSelectedSong} isPlaying={isPlaying} setIsPlaying={setIsPlaying} />     
-        )}
     </div>
     </div>
   );

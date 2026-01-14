@@ -1,5 +1,6 @@
 package com.Music.App.controller;
 
+import com.Music.App.dto.PlaylistRequestDTO;
 import com.Music.App.dto.PlaylistResponseDTO;
 import com.Music.App.model.Playlist;
 import com.Music.App.service.PlaylistService;
@@ -18,8 +19,8 @@ import java.util.List;
 public class PlaylistController {
     private final PlaylistService playlistService;
     @PostMapping
-    public ResponseEntity<Playlist> createPlaylists(@RequestBody Playlist playlist){
-        return ResponseEntity.ok(playlistService.savePlaylist(playlist));
+    public ResponseEntity<PlaylistResponseDTO> createPlaylists(@RequestBody PlaylistRequestDTO requestDTO){
+        return ResponseEntity.ok(playlistService.savePlaylist(requestDTO));
     }
     @GetMapping
     public ResponseEntity<List<Playlist>> getPlaylists(){

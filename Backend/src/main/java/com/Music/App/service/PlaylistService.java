@@ -1,5 +1,6 @@
 package com.Music.App.service;
 
+import com.Music.App.dto.PlaylistRequestDTO;
 import com.Music.App.dto.PlaylistResponseDTO;
 import com.Music.App.dto.SongResponseDTO;
 import com.Music.App.exception.GlobalExceptionHandler;
@@ -28,8 +29,20 @@ public class PlaylistService {
     private final SongRepo songRepo;
 
     @Transactional
-    public Playlist savePlaylist(Playlist playlist){
-        return playlistRepo.save(playlist);
+    public PlaylistResponseDTO savePlaylist(PlaylistRequestDTO requestDTO){
+        Playlist playlist=new Playlist();
+        playlist.setName(requestDTO.getName());
+        playlist.setDuration(0);
+
+        Playlist savedPlaylist=playlistRepo.save(playlist);
+        PlaylistResponseDTO response =new PlaylistResponseDTO();
+        response.setId(savedPlaylist.getId());
+        response.setName(savedPlaylist.getName());
+        response.setTotalDuration(0);
+        response.setFormattedDuration("0m 0s");
+        response.setSongs(List.of());
+
+        return response;
     }
 
     public List<Playlist> getAllPlaylists(){return playlistRepo.findAll();}

@@ -6,7 +6,7 @@ export const addSong=(title,duration,artist_id,imageUrl)=> api.post(`/songs`, {
                                                                           duration:duration,
                                                                           artist_id:artist_id,
                                                                           imageUrl:imageUrl});
-export const searchSong=(title)=> api.get('/songs', {params:{title:title}});
+export const searchSong=(title)=> api.get('/songs/search', {params:{title:title}});
 export const getLongCollabs=(minDuration)=> api.get("/songs", {params:{minDuration:minDuration}}); 
 export const getSongByArtist=(artist_id,name,genre)=> api.get('/songs/', {params:{artist_id:artist_id, name:name, genre:genre}});
 export const getSongByAlbumID=(albumId)=> api.get(`/songs/album/${albumId}`);

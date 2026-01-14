@@ -72,7 +72,9 @@ useEffect(() => {
         {playlists.map((list) => (
           <div key={list.id} onClick={(e)=>{e.stopPropagation(); onPlaylistClick(list.id);}} className="group bg-zinc-800/40 p-4 rounded-lg hover:bg-zinc-800 transition cursor-pointer relative">
             <div className="aspect-square bg-zinc-700 rounded-md mb-3 flex items-center justify-center shadow-lg" >
-              <span className="text-4xl">🎵</span>
+              <span className="text-4xl text-zinc-500 absolute">⋆.˚♬⋆.˚</span>
+              {list.songs?.[0]?.imageUrl && (<img src={list.songs[0].imageUrl} alt={list.name} className="w-full h-full object-cover relative z-10"
+                    onError={(e) => {e.target.style.display = 'none'; }}/> )}            
             </div>
             <h3 className="font-semibold truncate">{list.name}</h3>
             <p className="text-sm text-zinc-400">{list.songs?.length || 0} Şarkı</p>

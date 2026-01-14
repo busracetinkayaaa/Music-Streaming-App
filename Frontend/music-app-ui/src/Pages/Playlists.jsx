@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useFetch } from "../Hooks/useFetch.jsx";
-import {getAllPlaylists,getPlaylistByName,getAllPlaylistsContainingSong,deletePlaylist,addPlaylist} from "../Services/playlistService";
-import {Plus} from 'lucide-react';
+import playlistService, {getAllPlaylists,getPlaylistByName,getAllPlaylistsContainingSong,deletePlaylist,addPlaylist} from "../Services/playlistService";
+import {Plus,X} from 'lucide-react';
 
 const Playlists = ({ onPlaylistClick }) => {
 const [playlists, setPlaylists] = useState([]);
@@ -26,6 +26,16 @@ useEffect(() => {
       console.error("Error creating playlist:", err);
     }
   };
+
+  const handleDeletePlaylist=async (playlist_id) =>{
+    try{
+      await playlistService.deletePlaylist(playlist_id);
+      setPlaylists(prev=>prev.filter(p=>p.id !==playlist_id));
+    } catch(error)
+    {
+      console.error("Error deleting playlist",error);
+    }
+  }
 
   return (
     <div className="animate-in fade-in duration-500">
@@ -60,13 +70,15 @@ useEffect(() => {
       )}
       <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-4">
         {playlists.map((list) => (
-          <div key={list.id} onClick={()=>onPlaylistClick(list.id)} className="bg-zinc-800/40 p-4 rounded-lg hover:bg-zinc-800 transition cursor-pointer">
+          <div key={list.id} onClick={(e)=>{e.stopPropagation(); onPlaylistClick(list.id);}} className="group bg-zinc-800/40 p-4 rounded-lg hover:bg-zinc-800 transition cursor-pointer relative">
             <div className="aspect-square bg-zinc-700 rounded-md mb-3 flex items-center justify-center shadow-lg" >
               <span className="text-4xl">🎵</span>
             </div>
             <h3 className="font-semibold truncate">{list.name}</h3>
             <p className="text-sm text-zinc-400">{list.songs?.length || 0} Şarkı</p>
-     
+            <button onClick={(e)=>{e.stopPropagation(); handleDeletePlaylist(list.id);}} className="absolute top-1 right-1 p-1.5 bg-black/40 hover:bg-red-500 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity z-20">
+              <X size={16}/>
+            </button>
           </div>
         ))}
       </div>

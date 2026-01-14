@@ -4,13 +4,20 @@ import Sidebar from './Components/Sidebar';
 import Home from './Pages/Home';
 import Playlists from './Pages/Playlists';
 import { useSongs } from './Hooks/useSongs.jsx';
+import PlaylistDetail from './Pages/PlaylistDetail.jsx';
 
 function App() {
   const [activePage, setActivePage] = useState('home');
   const [selectedSong, setSelectedSong] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [selectedPlaylistId, setSelectedPlaylistId] = useState(null);
 
   const { songs, loading, error,deleteSongs } = useSongs();
+
+  const handleOpenPlaylist = (playlist_id) => {
+    setSelectedPlaylistId(playlist_id);
+    setActivePage('playlistDetail');
+  }
 
   const renderContent = () => {
     switch (activePage) {
@@ -23,7 +30,8 @@ function App() {
         loading={loading}
         error={error}
       />;
-      case 'playlists': return <Playlists />;
+      case 'playlists': return <Playlists onPlaylistClick={handleOpenPlaylist}/>;
+      case 'playlistDetail': return <PlaylistDetail playlist_id={selectedPlaylistId} selectedSong={setSelectedSong} />;
       case 'search': return <div className="text-white p-10">Arama Sayfası Yapım Aşamasında</div>;
       default: return <Home />;
     }

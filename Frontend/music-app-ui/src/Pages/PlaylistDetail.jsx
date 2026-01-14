@@ -2,6 +2,7 @@ import {useEffect,useState,useCallback} from "react";
 import playlistService from "../Services/playlistService";
 import songService from "../Services/songService";
 import SearchBar from "../Components/SearchBar";
+import {X} from "lucide-react";
 
 const PlaylistDetail = ({ playlist_id,setSelectedSong }) => {
     const [playlist, setPlaylist] = useState(null);
@@ -61,6 +62,16 @@ const PlaylistDetail = ({ playlist_id,setSelectedSong }) => {
     if (error) return <div className="p-10 text-red-500">{error}</div>;
     if (!playlist) return <div className="p-10 text-white">Playlist bulunamadı.</div>;   
 
+    const handleDeleteSongFromPlaylist=async(song_id)=>{
+        try{
+            await playlistService.deleteSongFromPlaylist(playlist_id,song_id);
+            await fetchDetails();
+        }catch(error)
+        {
+            console.error("failed deleting song",error);
+        }
+    };
+
     return (
         <div className="p-8 bg-zinc-950 text-white min-h-screen">
             <header className="flex justify-between items-start pl-6 mb-16 gap-12">
@@ -95,11 +106,10 @@ const PlaylistDetail = ({ playlist_id,setSelectedSong }) => {
                                 
             <div className="mb-12">
             {playlist.songs?.map((song,index)=>(
-                <div key={song.id} onClick={()=>setSelectedSong(song)} className="group flex items-center gap-4 p-3 hover:bg-zinc-800/60 rounded-lg transition cursor-pointer">
+                <div key={song.id} onClick={()=>setSelectedSong(song)} className="group flex items-center gap-4 p-3 hover:bg-zinc-800/60 rounded-lg transition cursor-pointer relative">
                     <span className="text-zinc-500 ext-sm font-medium w-6 text-center">{index + 1}</span>
                         <div className="shrink-0">
                            <img src={song.imageUrl} alt={song.title} className="h-12 w-12 rounded shadow-md object-cover" />                           
-    
                         </div> 
                         <div className="flex-1 min-w-0">
                             <p className="font-medium text-white truncate">
@@ -109,6 +119,9 @@ const PlaylistDetail = ({ playlist_id,setSelectedSong }) => {
                                 {song.artist?.name}
                             </p>
                         </div>
+                        <button className="p-1.5 bg-black/40 hover:bg-red-500 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity z-20" onClick={(e)=>{e.stopPropagation(); handleDeleteSongFromPlaylist(song.id)}}>
+                            <X size={16}/>
+                        </button>   
 
                </div>
             ))}

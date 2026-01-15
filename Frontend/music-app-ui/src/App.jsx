@@ -5,6 +5,7 @@ import Home from './Pages/Home';
 import Playlists from './Pages/Playlists';
 import { useSongs } from './Hooks/useSongs.jsx';
 import PlaylistDetail from './Pages/PlaylistDetail.jsx';
+import Albums from './Pages/Albums.jsx';
 
 function App() {
   const [activePage, setActivePage] = useState('home');
@@ -32,7 +33,7 @@ function App() {
       />;
       case 'playlists': return <Playlists onPlaylistClick={handleOpenPlaylist}/>;
       case 'playlistDetail': return <PlaylistDetail playlist_id={selectedPlaylistId} selectedSong={setSelectedSong} />;
-      case 'search': return <div className="text-white p-10">Arama Sayfası Yapım Aşamasında</div>;
+      case 'albums': return <Albums/>;
       default: return <Home />;
     }
   };

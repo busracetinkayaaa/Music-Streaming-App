@@ -1,9 +1,9 @@
-import { Home, Search, Library } from 'lucide-react';
+import { Home, Disc3, Library } from 'lucide-react';
 
 const Sidebar = ({ setPage }) => {
   const menu = [
     { name: 'Home', id: 'home', icon: <Home size={22} /> },
-    { name: 'Search', id: 'search', icon: <Search size={22} /> },
+    { name: 'Explore Albums', id: 'albums', icon: <Disc3 size={22} /> },
     { name: 'Your Library', id: 'playlists', icon: <Library size={22} /> },
   ];
 
